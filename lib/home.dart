@@ -3,6 +3,7 @@ import 'package:echonoteclone/note.dart';
 import 'package:echonoteclone/list.dart';
 import 'package:echonoteclone/notesrn.dart';
 import 'package:echonoteclone/task.dart';
+import 'package:echonoteclone/taskscrn.dart';
 import 'package:flutter/material.dart';
 
 class FirstPage extends StatefulWidget {
@@ -55,7 +56,7 @@ class _FirstPageState extends State<FirstPage> {
                 ))
               : null,
           body: Stack(children: <Widget>[
-            TabBarView(children: [NoteScreen(), ListScreen(), Text("jo")]),
+            TabBarView(children: [NoteScreen(), ListScreen(), TaskScreen()]),
             if (_showIcon)
               Positioned(
                 bottom: 60,
