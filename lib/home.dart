@@ -1,8 +1,9 @@
+import 'package:echonoteclone/listsrn.dart';
 import 'package:echonoteclone/note.dart';
 import 'package:echonoteclone/list.dart';
+import 'package:echonoteclone/notesrn.dart';
 import 'package:echonoteclone/task.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class FirstPage extends StatefulWidget {
   const FirstPage({super.key});
@@ -53,88 +54,74 @@ class _FirstPageState extends State<FirstPage> {
                   ),
                 ))
               : null,
-          body: TabBarView(children: [
-            GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                itemCount: 100,
-                itemBuilder: (context, index) {
-                  return Container(
-                    height: 80,
-                    width: 160,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: const Color.fromARGB(255, 252, 237, 107)),
-                  );
-                }),
-            Stack(children: <Widget>[
-              if (_showIcon)
-                Positioned(
-                  bottom: 60,
-                  right: 15,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(height: 40),
-                      Container(
-                        height: 45,
-                        width: 45,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.green),
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ThirdScreen()));
-                          },
-                          icon: Icon(Icons.check_circle_outline),
-                          color: Colors.black,
-                        ),
+          body: Stack(children: <Widget>[
+            TabBarView(children: [NoteScreen(), ListScreen(), Text("jo")]),
+            if (_showIcon)
+              Positioned(
+                bottom: 60,
+                right: 15,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: 40),
+                    Container(
+                      height: 45,
+                      width: 45,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.green),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ThirdScreen()));
+                        },
+                        icon: Icon(Icons.check_circle_outline),
+                        color: Colors.black,
                       ),
-                      SizedBox(height: 20),
-                      Container(
-                        height: 45,
-                        width: 45,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.green),
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SecondScreen()));
-                          },
-                          icon: Icon(Icons.check_box_rounded),
-                          color: Colors.black,
-                        ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      height: 45,
+                      width: 45,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.green),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SecondScreen()));
+                        },
+                        icon: Icon(Icons.check_box_rounded),
+                        color: Colors.black,
                       ),
-                      SizedBox(height: 20),
-                      Container(
-                        height: 45,
-                        width: 45,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.green),
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FirstscreenExp()));
-                          },
-                          icon: Icon(Icons.menu),
-                          color: Colors.black,
-                        ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      height: 45,
+                      width: 45,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.green),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FirstscreenExp()));
+                        },
+                        icon: Icon(Icons.menu),
+                        color: Colors.black,
                       ),
-                    ],
-                  ),
-                )
-            ])
+                    ),
+                  ],
+                ),
+              )
           ])),
     );
   }

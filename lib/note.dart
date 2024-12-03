@@ -1,4 +1,6 @@
+import 'package:echonoteclone/database.dart';
 import 'package:flutter/material.dart';
+import 'package:random_string/random_string.dart';
 
 class FirstscreenExp extends StatefulWidget {
   const FirstscreenExp({super.key});
@@ -10,7 +12,7 @@ class FirstscreenExp extends StatefulWidget {
 class _FirstscreenExpState extends State<FirstscreenExp> {
   final titleC = TextEditingController();
   final contentC = TextEditingController();
-  @override
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -29,7 +31,31 @@ class _FirstscreenExpState extends State<FirstscreenExp> {
           backgroundColor: Colors.green,
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  String id = randomAlphaNumeric(10);
+                  Map<String, dynamic> textInfoMap = {
+                    "title": titleC.text,
+                    "content": contentC.text,
+                    "Id": id,
+                  };
+                  await Database.addTextDetails(textInfoMap, id);
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Note Added"),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  titleC.clear();
+                                  contentC.clear();
+                                },
+                                child: Text("ok"))
+                          ],
+                        );
+                      });
+                },
                 icon: Icon(
                   Icons.check,
                   color: Colors.white,
@@ -54,7 +80,7 @@ class _FirstscreenExpState extends State<FirstscreenExp> {
               ),
               TextField(
                 maxLines: 30,
-                controller: titleC,
+                controller: contentC,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green)),

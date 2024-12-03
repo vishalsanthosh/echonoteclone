@@ -26,6 +26,7 @@ class Database {
     return await FirebaseFirestore.instance.collection("Task").doc(id).delete();
   }
 
+  //TEXt
   static Future addTextDetails(
       Map<String, dynamic> textInfoMap, String id) async {
     return await FirebaseFirestore.instance
@@ -50,6 +51,7 @@ class Database {
     return await FirebaseFirestore.instance.collection("Text").doc(id).delete();
   }
 
+  //List
   static Future addListDetails(
       Map<String, dynamic> listInfoMap, String id) async {
     return await FirebaseFirestore.instance
@@ -71,6 +73,6 @@ class Database {
   }
 
   static Future deleteListDetails(String id) async {
-    return await FirebaseFirestore.instance.collection("Task").doc(id).delete();
+    return await FirebaseFirestore.instance.collection("List").doc(id).delete();
   }
 }

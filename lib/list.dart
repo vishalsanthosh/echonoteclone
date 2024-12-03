@@ -1,4 +1,6 @@
+import 'package:echonoteclone/database.dart';
 import 'package:flutter/material.dart';
+import 'package:random_string/random_string.dart';
 
 class SecondScreen extends StatefulWidget {
   const SecondScreen({super.key});
@@ -29,7 +31,31 @@ class _SecondScreenState extends State<SecondScreen> {
           ),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  String id = randomAlphaNumeric(10);
+                  Map<String, dynamic> listInfoMap = {
+                    "title": listC.text,
+                    "content": addList.text,
+                    "Id": id,
+                  };
+                  await Database.addTextDetails(listInfoMap, id);
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("List Added"),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  listC.clear();
+                                  addList.clear();
+                                },
+                                child: Text("ok"))
+                          ],
+                        );
+                      });
+                },
                 icon: Icon(
                   Icons.check,
                   color: Colors.white,
