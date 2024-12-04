@@ -84,7 +84,7 @@ class _NoteScreenState extends State<NoteScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  EditTextScreen()));
+                                                  EditTextScreen(title: ds['title'],content: ds['content'],)));
                                     } else if (value == "Delete") {
                                       Database.deleteTextDetails(ds['Id']);
                                     }

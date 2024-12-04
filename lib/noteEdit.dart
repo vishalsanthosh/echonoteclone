@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
 
 class EditTextScreen extends StatefulWidget {
-  const EditTextScreen({super.key});
+  final String title;
+  final String content;
+
+  const EditTextScreen({
+    super.key,
+    required this.title,
+    required this.content,
+  });
 
   @override
   State<EditTextScreen> createState() => _EditTextScreenState();
@@ -13,6 +20,12 @@ class _EditTextScreenState extends State<EditTextScreen> {
   final titleC = TextEditingController();
 
   final contentC = TextEditingController();
+   @override
+  void dispose() {
+    titleC.dispose();
+    contentC.dispose();
+    super.dispose();
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
