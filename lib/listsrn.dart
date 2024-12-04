@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:echonoteclone/database.dart';
+import 'package:echonoteclone/noteEdit.dart';
+import 'package:echonoteclone/list.dart';
 import 'package:flutter/material.dart';
 
 class ListScreen extends StatefulWidget {
@@ -43,16 +45,20 @@ class _ListScreenState extends State<ListScreen> {
           }
           return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                  childAspectRatio: 1.8,
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10),
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 DocumentSnapshot ds = snapshot.data!.docs[index];
                 return Padding(
                   padding: EdgeInsets.all(8),
                   child: Container(
-                    height: 120,
+                    height: 50,
                     width: double.infinity,
                     decoration: BoxDecoration(
+                        color: Colors.amber[200],
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: Colors.black)),
                     child: Padding(
@@ -66,11 +72,30 @@ class _ListScreenState extends State<ListScreen> {
                               Text(
                                 (ds['title'] ?? "N/A"),
                                 style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.green,
+                                  fontSize: 18,
+                                  color: Colors.black,
                                 ),
                               ),
                               Spacer(),
+                              PopupMenuButton<String>(
+                                  onSelected: (value) {
+                                    if (value == "Edit") {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SecondScreen()));
+                                    } else if (value == "Delete") {
+                                      Database.deleteListDetails(ds['Id']);
+                                    }
+                                  },
+                                  itemBuilder: (context) => [
+                                        PopupMenuItem(
+                                            value: "Edit", child: Text("Edit")),
+                                        PopupMenuItem(
+                                            value: "Delete",
+                                            child: Text("Delete"))
+                                      ])
                             ],
                           ),
                           SizedBox(
@@ -78,7 +103,7 @@ class _ListScreenState extends State<ListScreen> {
                           ),
                           Text(
                             (ds["content"] ?? "N/A").toString(),
-                            style: TextStyle(fontSize: 8, color: Colors.yellow),
+                            style: TextStyle(fontSize: 18, color: Colors.black),
                           ),
                         ],
                       ),

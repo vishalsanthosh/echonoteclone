@@ -2,21 +2,21 @@ import 'package:echonoteclone/database.dart';
 import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
 
-class SecondScreen extends StatefulWidget {
-  const SecondScreen({super.key});
+class EditTextScreen extends StatefulWidget {
+  const EditTextScreen({super.key});
 
   @override
-  State<SecondScreen> createState() => _SecondScreenState();
+  State<EditTextScreen> createState() => _EditTextScreenState();
 }
 
-class _SecondScreenState extends State<SecondScreen> {
-  final listC = TextEditingController();
-  final addList = TextEditingController();
-  @override
+class _EditTextScreenState extends State<EditTextScreen> {
+  final titleC = TextEditingController();
+
+  final contentC = TextEditingController();
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.green,
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -26,30 +26,34 @@ class _SecondScreenState extends State<SecondScreen> {
                 color: Colors.white,
               )),
           title: Text(
-            "Add New List",
+            "Edit Note",
             style: TextStyle(color: Colors.white),
           ),
+          backgroundColor: Colors.green,
           actions: [
             IconButton(
                 onPressed: () async {
                   String id = randomAlphaNumeric(10);
-                  Map<String, dynamic> listInfoMap = {
-                    "title": listC.text,
-                    "content": addList.text,
+                  Map<String, dynamic> updateInfo = {
+                    "title": titleC.text,
+                    "content": contentC.text,
                     "Id": id,
                   };
-                  await Database.addListDetails(listInfoMap, id);
+                  await Database.updateTextDetails(id, updateInfo)
+                      .then((value) {
+                    Navigator.pop(context);
+                  });
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text("List Added"),
+                          title: Text("Note Edited"),
                           actions: [
                             TextButton(
                                 onPressed: () {
                                   Navigator.of(context).pop();
-                                  listC.clear();
-                                  addList.clear();
+                                  titleC.clear();
+                                  contentC.clear();
                                 },
                                 child: Text("ok"))
                           ],
@@ -67,7 +71,7 @@ class _SecondScreenState extends State<SecondScreen> {
           child: Column(
             children: [
               TextField(
-                controller: listC,
+                controller: titleC,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green)),
@@ -76,39 +80,20 @@ class _SecondScreenState extends State<SecondScreen> {
                         borderSide: BorderSide(color: Colors.green))),
               ),
               SizedBox(
-                height: 15,
+                height: 10,
               ),
               TextField(
-                controller: addList,
+                maxLines: 30,
+                controller: contentC,
                 decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.add,
-                          color: Colors.green,
-                        )),
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green)),
-                    label: Text("Add to List",
-                        style: TextStyle(color: Colors.green)),
+                    label:
+                        Text("Content", style: TextStyle(color: Colors.green)),
                     alignLabelWithHint: true,
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green))),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                  child: ListView.builder(
-                      itemCount: addList.text.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(addList.text),
-                          trailing: IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.cancel_outlined)),
-                        );
-                      }))
+              )
             ],
           ),
         ));

@@ -1,4 +1,6 @@
+import 'package:echonoteclone/database.dart';
 import 'package:flutter/material.dart';
+import 'package:random_string/random_string.dart';
 
 class ThirdScreen extends StatefulWidget {
   const ThirdScreen({super.key});
@@ -30,7 +32,31 @@ class _ThirdScreenState extends State<ThirdScreen> {
           ),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  String id = randomAlphaNumeric(10);
+                  Map<String, dynamic> taskInfoMap = {
+                    "title": taskC.text,
+                    "content": desC.text,
+                    "Id": id,
+                  };
+                  await Database.addTaskDetails(taskInfoMap, id);
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Task Added"),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  taskC.clear();
+                                  desC.clear();
+                                },
+                                child: Text("ok"))
+                          ],
+                        );
+                      });
+                },
                 icon: Icon(
                   Icons.check,
                   color: Colors.white,
