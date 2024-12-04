@@ -5,11 +5,13 @@ import 'package:random_string/random_string.dart';
 class EditTextScreen extends StatefulWidget {
   final String title;
   final String content;
+  final String id;
 
   const EditTextScreen({
     super.key,
     required this.title,
     required this.content,
+    required this.id
   });
 
   @override
