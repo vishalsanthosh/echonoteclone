@@ -87,7 +87,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                               builder: (context) => EditTask(
                                                     title: ds["title"],
                                                     content: ds["content"],
-                                                    id: ds["id"],
+                                                    id: ds["Id"],
                                                   )));
                                     } else if (value == "Delete") {
                                       Database.deleteTaskDetails(ds['Id']);
