@@ -7,22 +7,27 @@ class EditTextScreen extends StatefulWidget {
   final String content;
   final String id;
 
-  const EditTextScreen({
-    super.key,
-    required this.title,
-    required this.content,
-    required this.id
-  });
+  const EditTextScreen(
+      {super.key,
+      required this.title,
+      required this.content,
+      required this.id});
 
   @override
   State<EditTextScreen> createState() => _EditTextScreenState();
 }
 
 class _EditTextScreenState extends State<EditTextScreen> {
-  final titleC = TextEditingController();
+  late TextEditingController titleC;
+  late TextEditingController contentC;
 
-  final contentC = TextEditingController();
-   @override
+  void initState() {
+    super.initState();
+    titleC = TextEditingController(text: widget.title);
+    contentC = TextEditingController(text: widget.content);
+  }
+
+  @override
   void dispose() {
     titleC.dispose();
     contentC.dispose();
@@ -52,9 +57,9 @@ class _EditTextScreenState extends State<EditTextScreen> {
                   Map<String, dynamic> updateInfo = {
                     "title": titleC.text,
                     "content": contentC.text,
-                    "Id": id,
+                    "Id": widget.id,
                   };
-                  await Database.updateTextDetails(id, updateInfo)
+                  await Database.updateTextDetails(widget.id, updateInfo)
                       .then((value) {
                     Navigator.pop(context);
                   });

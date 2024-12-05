@@ -1,7 +1,7 @@
 import 'package:echonoteclone/listsrn.dart';
-import 'package:echonoteclone/note.dart';
+import 'package:echonoteclone/text_ui.dart';
 import 'package:echonoteclone/list.dart';
-import 'package:echonoteclone/notesrn.dart';
+import 'package:echonoteclone/text_screen.dart';
 import 'package:echonoteclone/task.dart';
 import 'package:echonoteclone/taskscrn.dart';
 import 'package:flutter/material.dart';

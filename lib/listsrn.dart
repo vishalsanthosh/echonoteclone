@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:echonoteclone/database.dart';
-import 'package:echonoteclone/noteEdit.dart';
+import 'package:echonoteclone/list_Edit.dart';
+import 'package:echonoteclone/text_Edit.dart';
 import 'package:echonoteclone/list.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +46,7 @@ class _ListScreenState extends State<ListScreen> {
           }
           return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 1.8,
+                  childAspectRatio: 1,
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10),
@@ -55,7 +56,7 @@ class _ListScreenState extends State<ListScreen> {
                 return Padding(
                   padding: EdgeInsets.all(8),
                   child: Container(
-                    height: 50,
+                    height: 100,
                     width: double.infinity,
                     decoration: BoxDecoration(
                         color: Colors.amber[200],
@@ -84,7 +85,11 @@ class _ListScreenState extends State<ListScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  SecondScreen()));
+                                                  ListEditScreen(
+                                                    title: ds["title"],
+                                                    content: ds["content"],
+                                                    id: ds["id"],
+                                                  )));
                                     } else if (value == "Delete") {
                                       Database.deleteListDetails(ds['Id']);
                                     }

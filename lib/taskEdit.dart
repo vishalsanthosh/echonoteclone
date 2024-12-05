@@ -3,15 +3,37 @@ import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
 
 class EditTask extends StatefulWidget {
-  const EditTask({super.key});
+  final String title;
+  final String content;
+  final String id;
+
+  const EditTask(
+      {super.key,
+      required this.title,
+      required this.content,
+      required this.id});
 
   @override
   State<EditTask> createState() => _EditTaskState();
 }
 
 class _EditTaskState extends State<EditTask> {
-  final taskC = TextEditingController();
-  final desC = TextEditingController();
+  late TextEditingController taskC;
+  late TextEditingController desC;
+
+  void initState() {
+    super.initState();
+    taskC = TextEditingController(text: widget.title);
+    desC = TextEditingController(text: widget.content);
+  }
+
+  @override
+  void dispose() {
+    taskC.dispose();
+    desC.dispose();
+    super.dispose();
+  }
+
   final DateTime dateTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
@@ -37,9 +59,9 @@ class _EditTaskState extends State<EditTask> {
                   Map<String, dynamic> updateInfo = {
                     "title": taskC.text,
                     "content": desC.text,
-                    "Id": id,
+                    "Id": widget.id,
                   };
-                  await Database.updateTaskDetails(id, updateInfo)
+                  await Database.updateTaskDetails(widget.id, updateInfo)
                       .then((value) {
                     Navigator.pop(context);
                   });

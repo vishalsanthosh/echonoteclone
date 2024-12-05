@@ -2,16 +2,36 @@ import 'package:echonoteclone/database.dart';
 import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
 
-class SecondScreen extends StatefulWidget {
-  const SecondScreen({super.key});
-
+class ListEditScreen extends StatefulWidget {
+  final String title;
+  final String content;
+  final String id;
+  const ListEditScreen(
+      {super.key,
+      required this.title,
+      required this.content,
+      required this.id});
   @override
-  State<SecondScreen> createState() => _SecondScreenState();
+  State<ListEditScreen> createState() => _ListEditScreenState();
 }
 
-class _SecondScreenState extends State<SecondScreen> {
-  final listC = TextEditingController();
-  final addList = TextEditingController();
+class _ListEditScreenState extends State<ListEditScreen> {
+  late TextEditingController listC;
+  late TextEditingController addList;
+
+  void initState() {
+    super.initState();
+    listC = TextEditingController(text: widget.title);
+    addList = TextEditingController(text: widget.content);
+  }
+
+  @override
+  void dispose() {
+    listC.dispose();
+    addList.dispose();
+    super.dispose();
+  }
+
   List<String> _listS = [];
   void _addTextToList() {
     setState(() {
@@ -43,12 +63,12 @@ class _SecondScreenState extends State<SecondScreen> {
             IconButton(
                 onPressed: () async {
                   String id = randomAlphaNumeric(10);
-                  Map<String, dynamic> listInfoMap = {
+                  Map<String, dynamic> updateInfo = {
                     "title": listC.text,
                     "content": _listS,
-                    "Id": id,
+                    "Id": widget.id,
                   };
-                  await Database.addListDetails(listInfoMap, id);
+                  await Database.updateListDetails(widget.id, updateInfo);
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {

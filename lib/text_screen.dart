@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:echonoteclone/database.dart';
-import 'package:echonoteclone/noteEdit.dart';
-import 'package:echonoteclone/note.dart';
+import 'package:echonoteclone/text_Edit.dart';
+import 'package:echonoteclone/text_ui.dart';
 import 'package:flutter/material.dart';
 
 class NoteScreen extends StatefulWidget {
@@ -45,7 +45,7 @@ class _NoteScreenState extends State<NoteScreen> {
           }
           return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 1.8,
+                  childAspectRatio: 1.3,
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10),
@@ -84,7 +84,11 @@ class _NoteScreenState extends State<NoteScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  EditTextScreen(title: ds['title'],content: ds['content'],id: ds["Id"],)));
+                                                  EditTextScreen(
+                                                    title: ds['title'],
+                                                    content: ds['content'],
+                                                    id: ds["Id"],
+                                                  )));
                                     } else if (value == "Delete") {
                                       Database.deleteTextDetails(ds['Id']);
                                     }
