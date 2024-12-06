@@ -13,6 +13,12 @@ class _SecondScreenState extends State<SecondScreen> {
   final listC = TextEditingController();
   final addList = TextEditingController();
   List<String> _listS = [];
+  void _removeList(int index) {
+    setState(() {
+      _listS.removeAt(index);
+    });
+  }
+
   void _addTextToList() {
     setState(() {
       if (addList.text.isNotEmpty) {
@@ -118,7 +124,7 @@ class _SecondScreenState extends State<SecondScreen> {
                           title: Text(_listS[index]),
                           trailing: IconButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                _removeList(index);
                               },
                               icon: Icon(Icons.cancel_outlined)),
                         );

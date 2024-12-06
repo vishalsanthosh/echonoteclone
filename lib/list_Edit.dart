@@ -18,6 +18,11 @@ class ListEditScreen extends StatefulWidget {
 class _ListEditScreenState extends State<ListEditScreen> {
   late TextEditingController listC;
   late TextEditingController addList;
+  void _removeList(int index) {
+    setState(() {
+      _listS.removeAt(index);
+    });
+  }
 
   void initState() {
     super.initState();
@@ -138,7 +143,7 @@ class _ListEditScreenState extends State<ListEditScreen> {
                           title: Text(_listS[index]),
                           trailing: IconButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                _removeList(index);
                               },
                               icon: Icon(Icons.cancel_outlined)),
                         );
