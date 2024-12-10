@@ -28,17 +28,21 @@ class _FirstPageState extends State<FirstPage> {
               style: TextStyle(color: Colors.white),
             ),
             backgroundColor: Colors.green,
-            bottom: TabBar(tabs: [
-              Tab(
-                text: "Text",
-              ),
-              Tab(
-                text: "List",
-              ),
-              Tab(
-                text: "Task",
-              )
-            ]),
+            bottom: TabBar(
+                indicatorColor: Colors.green,
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.black,
+                tabs: [
+                  Tab(
+                    text: "Text",
+                  ),
+                  Tab(
+                    text: "List",
+                  ),
+                  Tab(
+                    text: "Task",
+                  )
+                ]),
           ),
           floatingActionButton: _showFab
               ? (FloatingActionButton(
