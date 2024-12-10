@@ -40,7 +40,7 @@ class _NoteScreenState extends State<NoteScreen> {
           }
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
             return Center(
-              child: Text("No Notes Available"),
+              child: Text(""),
             );
           }
           return GridView.builder(
@@ -69,11 +69,15 @@ class _NoteScreenState extends State<NoteScreen> {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                (ds['title'] ?? "N/A"),
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black,
+                              Flexible(
+                                child: Text(
+                                  (ds['title'] ?? "N/A"),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
                                 ),
                               ),
                               Spacer(),
@@ -108,6 +112,8 @@ class _NoteScreenState extends State<NoteScreen> {
                           Text(
                             (ds["content"] ?? "N/A").toString(),
                             style: TextStyle(fontSize: 18, color: Colors.black),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
                           ),
                         ],
                       ),

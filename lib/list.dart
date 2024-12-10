@@ -55,22 +55,9 @@ class _SecondScreenState extends State<SecondScreen> {
                     "Id": id,
                   };
                   await Database.addListDetails(listInfoMap, id);
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("List Added"),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  listC.clear();
-                                  addList.clear();
-                                },
-                                child: Text("ok"))
-                          ],
-                        );
-                      });
+                  Navigator.of(context).pop();
+                  listC.clear();
+                  addList.clear();
                 },
                 icon: Icon(
                   Icons.check,

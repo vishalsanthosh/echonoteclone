@@ -40,22 +40,9 @@ class _ThirdScreenState extends State<ThirdScreen> {
                     "Id": id,
                   };
                   await Database.addTaskDetails(taskInfoMap, id);
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Task Added"),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
+                 Navigator.of(context).pop();
                                   taskC.clear();
                                   desC.clear();
-                                },
-                                child: Text("ok"))
-                          ],
-                        );
-                      });
                 },
                 icon: Icon(
                   Icons.check,

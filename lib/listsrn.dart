@@ -41,7 +41,7 @@ class _ListScreenState extends State<ListScreen> {
           }
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
             return Center(
-              child: Text("No List Available"),
+              child: Text(""),
             );
           }
           return GridView.builder(
@@ -70,11 +70,14 @@ class _ListScreenState extends State<ListScreen> {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                (ds['title'] ?? "N/A"),
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black,
+                              Flexible(
+                                child: Text(
+                                  (ds['title'] ?? "N/A"),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               Spacer(),
@@ -87,8 +90,9 @@ class _ListScreenState extends State<ListScreen> {
                                               builder: (context) =>
                                                   ListEditScreen(
                                                     title: ds["title"],
-                                                    content: ds["content"],
-                                                    id: ds["id"],
+                                                    content: List<String>.from(
+                                                        ds["content"]),
+                                                    id: ds["Id"],
                                                   )));
                                     } else if (value == "Delete") {
                                       Database.deleteListDetails(ds['Id']);
@@ -106,9 +110,16 @@ class _ListScreenState extends State<ListScreen> {
                           SizedBox(
                             height: 3,
                           ),
-                          Text(
-                            (ds["content"] ?? "N/A").toString(),
-                            style: TextStyle(fontSize: 18, color: Colors.black),
+                          Flexible(
+                            child: Text(
+                              (ds["content"] != null &&
+                                      ds["content"].isNotEmpty)
+                                  ? ds["content"].join(", ")
+                                  : "N/A",
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.black),
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ],
                       ),

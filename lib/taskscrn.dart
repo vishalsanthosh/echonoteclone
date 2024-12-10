@@ -41,7 +41,7 @@ class _TaskScreenState extends State<TaskScreen> {
           }
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
             return Center(
-              child: Text("No Task Available"),
+              child: Text(""),
             );
           }
           return GridView.builder(
@@ -70,11 +70,14 @@ class _TaskScreenState extends State<TaskScreen> {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                (ds['title'] ?? "N/A"),
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
+                              Flexible(
+                                child: Text(
+                                  (ds['title'] ?? "N/A"),
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               Spacer(),
@@ -112,9 +115,13 @@ class _TaskScreenState extends State<TaskScreen> {
                           SizedBox(
                             height: 3,
                           ),
-                          Text(
-                            (ds["content"] ?? "N/A").toString(),
-                            style: TextStyle(fontSize: 15, color: Colors.black),
+                          Flexible(
+                            child: Text(
+                              (ds["content"] ?? "N/A").toString(),
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.black),
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                           SizedBox(
                             height: 5,

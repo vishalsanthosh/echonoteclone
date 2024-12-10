@@ -65,22 +65,9 @@ class _EditTaskState extends State<EditTask> {
                       .then((value) {
                     Navigator.pop(context);
                   });
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Note Added"),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
                                   taskC.clear();
                                   desC.clear();
-                                },
-                                child: Text("ok"))
-                          ],
-                        );
-                      });
                 },
                 icon: Icon(
                   Icons.check,

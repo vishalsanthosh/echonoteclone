@@ -4,7 +4,7 @@ import 'package:random_string/random_string.dart';
 
 class ListEditScreen extends StatefulWidget {
   final String title;
-  final String content;
+  final List<dynamic> content;
   final String id;
   const ListEditScreen(
       {super.key,
@@ -27,7 +27,8 @@ class _ListEditScreenState extends State<ListEditScreen> {
   void initState() {
     super.initState();
     listC = TextEditingController(text: widget.title);
-    addList = TextEditingController(text: widget.content);
+    addList = TextEditingController();
+    _listS = List<String>.from(widget.content);
   }
 
   @override
@@ -74,22 +75,9 @@ class _ListEditScreenState extends State<ListEditScreen> {
                     "Id": widget.id,
                   };
                   await Database.updateListDetails(widget.id, updateInfo);
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("List Added"),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  listC.clear();
-                                  addList.clear();
-                                },
-                                child: Text("ok"))
-                          ],
-                        );
-                      });
+                  Navigator.of(context).pop();
+                  listC.clear();
+                  addList.clear();
                 },
                 icon: Icon(
                   Icons.check,

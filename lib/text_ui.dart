@@ -39,22 +39,9 @@ class _FirstscreenExpState extends State<FirstscreenExp> {
                     "Id": id,
                   };
                   await Database.addTextDetails(textInfoMap, id);
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Note Added"),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
                                   titleC.clear();
                                   contentC.clear();
-                                },
-                                child: Text("ok"))
-                          ],
-                        );
-                      });
                 },
                 icon: Icon(
                   Icons.check,

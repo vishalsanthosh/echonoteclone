@@ -63,22 +63,9 @@ class _EditTextScreenState extends State<EditTextScreen> {
                       .then((value) {
                     Navigator.pop(context);
                   });
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Note Edited"),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  titleC.clear();
-                                  contentC.clear();
-                                },
-                                child: Text("ok"))
-                          ],
-                        );
-                      });
+                  Navigator.of(context).pop();
+                  titleC.clear();
+                  contentC.clear();
                 },
                 icon: Icon(
                   Icons.check,
