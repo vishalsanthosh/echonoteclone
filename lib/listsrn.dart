@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:echonoteclone/database.dart';
 import 'package:echonoteclone/list_Edit.dart';
 
-
 import 'package:flutter/material.dart';
 
 class ListScreen extends StatefulWidget {

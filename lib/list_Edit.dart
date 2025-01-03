@@ -18,6 +18,9 @@ class ListEditScreen extends StatefulWidget {
 class _ListEditScreenState extends State<ListEditScreen> {
   late TextEditingController listC;
   late TextEditingController addList;
+  late TextEditingController editListC;
+  int? _editingIndex;
+
   void _removeList(int index) {
     setState(() {
       _listS.removeAt(index);
@@ -28,6 +31,7 @@ class _ListEditScreenState extends State<ListEditScreen> {
     super.initState();
     listC = TextEditingController(text: widget.title);
     addList = TextEditingController();
+    editListC = TextEditingController();
     _listS = List<String>.from(widget.content);
   }
 
@@ -35,10 +39,12 @@ class _ListEditScreenState extends State<ListEditScreen> {
   void dispose() {
     listC.dispose();
     addList.dispose();
+    editListC.dispose();
     super.dispose();
   }
 
   List<String> _listS = [];
+  
   void _addTextToList() {
     setState(() {
       if (addList.text.isNotEmpty) {
@@ -46,6 +52,22 @@ class _ListEditScreenState extends State<ListEditScreen> {
         addList.clear();
       }
     });
+  }
+
+  void _editList(int index) {
+    setState(() {
+      _editingIndex = index;
+      editListC.text = _listS[index];
+    });
+  }
+
+  void _saveEditedItem() {
+    if (_editingIndex != null && editListC.text.isNotEmpty) {
+      setState(() {
+        _listS[_editingIndex!] = editListC.text;
+        _editingIndex = null;
+      });
+    }
   }
 
   @override
@@ -62,7 +84,7 @@ class _ListEditScreenState extends State<ListEditScreen> {
                 color: Colors.white,
               )),
           title: Text(
-            "Add New List",
+            "Edit List",
             style: TextStyle(color: Colors.white),
           ),
           actions: [
@@ -128,12 +150,43 @@ class _ListEditScreenState extends State<ListEditScreen> {
                       itemCount: _listS.length,
                       itemBuilder: (context, index) {
                         return ListTile(
-                          title: Text(_listS[index]),
-                          trailing: IconButton(
-                              onPressed: () {
-                                _removeList(index);
-                              },
-                              icon: Icon(Icons.cancel_outlined)),
+                          title: _editingIndex == index
+                              ? TextField(
+                                  controller: editListC,
+                                  decoration: InputDecoration(
+                                      labelText: 'Edit Item',
+                                      border: OutlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.green))),
+                                )
+                              : Text(_listS[index]),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  _editList(index);
+                                },
+                                icon: Icon(
+                                  Icons.edit,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  _removeList(index);
+                                },
+                                icon: Icon(Icons.cancel_outlined),
+                              ),
+                              if (_editingIndex == index)
+                                IconButton(
+                                  onPressed: () {
+                                    _saveEditedItem();
+                                  },
+                                  icon: Icon(Icons.save, color: Colors.black),
+                                ),
+                            ],
+                          ),
                         );
                       }))
             ],
